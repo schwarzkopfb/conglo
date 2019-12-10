@@ -1,0 +1,39 @@
+{
+  "name": "conglo",
+  "version": "0.1.0",
+  "description": "compose expressive async data transformation pipelines",
+  "main": "lib/with-globals.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap test/**",
+    "test:cov": "npm test -- --coverage-report=lcov",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/schwarzkopfb/conglo.git"
+  },
+  "keywords": [
+    "async",
+    "data",
+    "transform",
+    "pipeline",
+    "promise",
+    "iter",
+    "collection"
+  ],
+  "author": "Schwarzkopf Balázs <schwarzkopfb@icloud.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/schwarzkopfb/conglo/issues"
+  },
+  "homepage": "https://github.com/schwarzkopfb/conglo#readme",
+  "devDependencies": {
+    "tap": "^14.10.2",
+    "vuepress": "^1.2.0"
+  }
+}
