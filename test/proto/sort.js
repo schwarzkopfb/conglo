@@ -1,7 +1,6 @@
 'use strict'
 
-const { AssertionError: AE } = require('assert'),
-      test = require('tap'),
+const test = require('tap'),
       Pipeline = require('../..')
 
 const data = [
@@ -385,29 +384,30 @@ test.test('custom localeCompare() options', test => {
 })
 
 test.test('assertions', test => {
-    function testRejection(desc, msg, errCtor = AE) {
+    function testRejection(desc, msg, errCtor) {
         test.rejects(new Pipeline().sort(desc).toArray(), errCtor, msg)
     }
 
-    testRejection(true, 'invalid sorting descriptor')
-    testRejection(-1, 'negative number as sorting descriptor')
-    testRejection(0.1, 'non-integer number as sorting descriptor')
-    testRejection({ comp: true }, 'non-function comparer')
+    testRejection(true, 'invalid sorting descriptor', TypeError)
+    testRejection(null, 'null sorting descriptor', TypeError)
+    testRejection(-1, 'negative number as sorting descriptor', RangeError)
+    testRejection(0.1, 'non-integer number as sorting descriptor', RangeError)
+    testRejection({ comp: true }, 'non-function comparer', TypeError)
     testRejection({ comp: () => {}, sel: () => {} }, 'comparer and selector together', RangeError)
     testRejection({ comp: () => {}, f: 'test' }, 'comparer and field name together', RangeError)
     testRejection({ comp: () => {}, i: 2 }, 'comparer and index together', RangeError)
     testRejection({ c: () => {}, desc: true }, 'descending order and comparer', RangeError)
     testRejection({ c: () => {}, o: { ignorePunctuation: true } }, 'options for localeCompare() and comparer', RangeError)
     testRejection({ field: 'test', s: () => {} }, 'field name and selector together', RangeError)
-    testRejection({ field: {} }, 'non-string field name')
+    testRejection({ field: {} }, 'non-string and non-symbol field name', TypeError)
     testRejection({ i: 0, s: () => {} }, 'index and selector together', RangeError)
     testRejection({ i: 0, f: 'test' }, 'index and field name together', RangeError)
     testRejection({ i: 'a' }, 'non-number index via descriptor', TypeError)
     testRejection({ i: 1.1 }, 'non-integer index via descriptor', RangeError)
     testRejection({ index: -1 }, 'negative index via descriptor', RangeError)
-    testRejection({ field: 'test', opts: true }, 'non-object options for localeCompare()')
-    testRejection({ sel: true }, 'non-function selector')
-    testRejection({}, 'deficient descriptor')
+    testRejection({ field: 'test', opts: true }, 'non-object options for localeCompare()', TypeError)
+    testRejection({ sel: true }, 'non-function selector', TypeError)
+    testRejection({}, 'deficient descriptor', RangeError)
 
     test.resolveMatch(
         [ 
