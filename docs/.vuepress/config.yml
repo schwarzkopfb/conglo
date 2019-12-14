@@ -1,3 +1,4 @@
+base: '/conglo/'
 description: 'compose expressive async data transformation pipelines easily'
 themeConfig:
   logo: '/logo.png'
