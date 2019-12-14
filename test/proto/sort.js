@@ -25,10 +25,28 @@ test.resolveMatch(
 test.resolveMatch(
     new Pipeline(data)
         .map(e => e.char)
-        .order({ desc: true })
+        .order(false)
+        .toArray(),
+    [ 'a', 'b', 'b', 'c', 'c', 'c', 'd' ],
+    'default comparer, ascending order, explicitly specified'
+)
+
+test.resolveMatch(
+    new Pipeline(data)
+        .map(e => e.char)
+        .order(true)
         .toArray(),
     [ 'd', 'c', 'c', 'c', 'b', 'b', 'a' ],
     'default comparer but descending order'
+)
+
+test.resolveMatch(
+    new Pipeline(data)
+        .map(e => e.char)
+        .order({ desc: true })
+        .toArray(),
+    [ 'd', 'c', 'c', 'c', 'b', 'b', 'a' ],
+    'default comparer but descending order with object descriptor'
 )
 
 test.resolveMatch(
@@ -301,6 +319,77 @@ test.resolveMatch(
     'sorting an array of Maps'
 )
 
+test.test('promises as arguments', test => {
+    test.resolveMatch(
+        [ 3, 1, 2 ]
+            .toPipeline()
+            .sort(Promise.resolve(true))
+            .toArray(),
+        [ 3, 2, 1 ],
+        '1 promise arg'
+    )
+
+    test.resolveMatch(
+        [ 
+            { a: 2, b: 1 },
+            { a: 1, b: 2 },
+            { a: 3, b: 2 },
+            { a: 1, b: 1 },
+            { a: 2, b: 2 }
+        ]
+            .toPipeline()
+            .sort(Promise.resolve('a'), Promise.resolve('b'))
+            .toArray(),
+        [
+            { a: 1, b: 1 },
+            { a: 1, b: 2 },
+            { a: 2, b: 1 },
+            { a: 2, b: 2 },
+            { a: 3, b: 2 }
+        ],
+        '2 promise args'
+    )
+
+    test.resolveMatch(
+        [ 
+            { a: 2, b: 1 },
+            { a: 1, b: 2 },
+            { a: 3, b: 2 },
+            { a: 1, b: 1 },
+            { a: 2, b: 2 }
+        ]
+            .toPipeline()
+            .sort('a', Promise.resolve({ field: 'b', descending: true }))
+            .toArray(),
+        [
+            { a: 1, b: 2 },
+            { a: 1, b: 1 },
+            { a: 2, b: 2 },
+            { a: 2, b: 1 },
+            { a: 3, b: 2 }
+        ],
+        'mixed args'
+    )
+
+    class TestError extends Error {
+        constructor(msg) {
+            super(msg)
+            this.name = 'TestError'
+        }
+    }
+
+    test.rejects(
+        [ 3, 2, 1 ]
+            .toPipeline()
+            .sort(Promise.reject(new TestError('test')))
+            .toArray(),
+        TestError,
+        'rejection should be propagated'
+    )
+
+    test.end()
+})
+
 test.test('custom localeCompare() options', test => {
     test.plan(4)
 
@@ -388,10 +477,10 @@ test.test('assertions', test => {
         test.rejects(new Pipeline().sort(desc).toArray(), errCtor, msg)
     }
 
-    testRejection(true, 'invalid sorting descriptor', TypeError)
     testRejection(null, 'null sorting descriptor', TypeError)
     testRejection(-1, 'negative number as sorting descriptor', RangeError)
     testRejection(0.1, 'non-integer number as sorting descriptor', RangeError)
+    testRejection(Infinity, 'Infinity as sorting descriptor', RangeError)
     testRejection({ comp: true }, 'non-function comparer', TypeError)
     testRejection({ comp: () => {}, sel: () => {} }, 'comparer and selector together', RangeError)
     testRejection({ comp: () => {}, f: 'test' }, 'comparer and field name together', RangeError)
@@ -404,6 +493,7 @@ test.test('assertions', test => {
     testRejection({ i: 0, f: 'test' }, 'index and field name together', RangeError)
     testRejection({ i: 'a' }, 'non-number index via descriptor', TypeError)
     testRejection({ i: 1.1 }, 'non-integer index via descriptor', RangeError)
+    testRejection({ i: Infinity }, 'Infinity as index via descriptor', RangeError)
     testRejection({ index: -1 }, 'negative index via descriptor', RangeError)
     testRejection({ field: 'test', opts: true }, 'non-object options for localeCompare()', TypeError)
     testRejection({ sel: true }, 'non-function selector', TypeError)
