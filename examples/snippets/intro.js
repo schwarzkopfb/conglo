@@ -1,7 +1,7 @@
 const result = await User
     // example mongoose query
     .find({ age: { $gte: 18 } })
-    // turn the Promise into a Conglo Pipeline
+    // turn the Promise into a Conglo AsyncIterable
     .toPipeline()
     // perform async mapping on it
     .map(async ({ id, age }) => ({
