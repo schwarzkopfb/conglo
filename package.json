@@ -9,6 +9,8 @@
   },
   "scripts": {
     "preversion": "npm test",
+    "postversion": "npm publish",
+    "postpublish": "git push origin --all; git push origin --tags",
     "test": "tap test/**",
     "test:cov": "npm test -- --coverage-report=lcov",
     "docs:dev": "vuepress dev docs",
@@ -19,13 +21,20 @@
     "url": "git+https://github.com/schwarzkopfb/conglo.git"
   },
   "keywords": [
+    "array",
     "async",
+    "chain",
+    "collection",
     "data",
-    "transform",
+    "enumerable",
+    "generator",
+    "iterable",
+    "iterator",
+    "manipulation",
     "pipeline",
     "promise",
-    "iter",
-    "collection"
+    "set",
+    "transform"
   ],
   "author": "Schwarzkopf Balázs <schwarzkopfb@icloud.com>",
   "license": "MIT",
