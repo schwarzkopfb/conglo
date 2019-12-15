@@ -1,7 +1,7 @@
 'use strict'
 
 const test = require('tap'),
-      Pipeline = require('../..')
+      AsyncIterable = require('../..')
 
 const data = [
     { char: 'c', number: 3, emoji: '😀' },
@@ -14,7 +14,7 @@ const data = [
 ]
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(e => e.char)
         .sort()
         .toArray(),
@@ -23,7 +23,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(e => e.char)
         .order(false)
         .toArray(),
@@ -32,7 +32,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(e => e.char)
         .order(true)
         .toArray(),
@@ -41,7 +41,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(e => e.char)
         .order({ desc: true })
         .toArray(),
@@ -51,7 +51,7 @@ test.resolveMatch(
 
 test.resolveMatch(
     [ 'a', 1, null, 2, false, undefined ]
-        .toPipeline()
+        .toAsyncIterable()
         .sort()
         .toArray(),
     [ 1, 2, 'a', false, null, undefined ],
@@ -59,7 +59,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .sortBy({ field: 'char' })
         .toArray(),
     [
@@ -75,7 +75,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .orderBy({ field: 'char', d: true })
         .toArray(),
     [
@@ -91,7 +91,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .sort('number')
         .toArray(),
     [
@@ -109,7 +109,7 @@ test.resolveMatch(
 const field = Symbol('number')
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(({ number }) => ({
             [ field ]: number
         }))
@@ -121,7 +121,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(({ number }) => ({
             [ field ]: number
         }))
@@ -133,7 +133,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .sort({ field: 'number', desc: 1 })
         .toArray(),
     [
@@ -149,7 +149,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .sort({ field: 'char' }, { field: 'number', descending: 'yes' })
         .toArray(),
     [
@@ -165,7 +165,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .sort({ field: 'char' }, { field: 'emoji', d: 1 })
         .toArray(),
     [
@@ -181,7 +181,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(el => {
             // in JS, empty string is a valid field name
             el[ '' ] = el[ 'number' ]
@@ -195,7 +195,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline([
+    new AsyncIterable([
         [ 'o', 3 ],
         [ 'e', 0 ],
         [ 'l', 1 ],
@@ -210,7 +210,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline([
+    new AsyncIterable([
         [ 'o', 3 ],
         [ 'e', 0 ],
         [ 'l', 1 ],
@@ -225,7 +225,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline([
+    new AsyncIterable([
         [ 'h', 3 ],
         [ 'l', 0 ],
         [ 'l', 1 ],
@@ -240,13 +240,13 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    'álaoőo'.toPipeline().sort().join(''),
+    'álaoőo'.toAsyncIterable().sort().join(''),
     'aálooő',
     'accented characters'
 )
 
 test.resolveMatch(
-    new Pipeline(data).sort(({ number }) => number).toArray(),
+    new AsyncIterable(data).sort(({ number }) => number).toArray(),
     [
         { char: 'c', number: 1, emoji: '😆' },
         { char: 'c', number: 2, emoji: '😃' },
@@ -261,7 +261,7 @@ test.resolveMatch(
 
 test.resolveMatch(
     'álaoőo'
-        .toPipeline()
+        .toAsyncIterable()
         .sort({ comparer: (a, b) => a > b ? 1 : a < b ? -1 : 0 })
         .join(''),
     'alooáő',
@@ -269,7 +269,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .sort(
             { selector: ({ char }) => char, d: true },
             'number'
@@ -288,7 +288,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .append({ char: 'c', number: 1, emoji: '😀' },)
         .sort(
             { selector: ({ char }) => char },
@@ -310,7 +310,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(data)
+    new AsyncIterable(data)
         .map(item => new Map(Object.entries(item)))
         .sort(item => item.get('char'))
         .map(item => item.get('char'))
@@ -325,7 +325,7 @@ test.test('custom localeCompare() options', test => {
     const items = [ 'réservé', 'Premier', 'Cliché', 'communiqué', 'café', 'Adieu' ]
 
     test.resolveMatch(
-        items.toPipeline()
+        items.toAsyncIterable()
             .sortBy({ options: { locales: 'fr', ignorePunctuation: true } })
             .toArray(),
         [ 'Adieu', 'café', 'Cliché', 'communiqué', 'Premier', 'réservé' ],
@@ -333,7 +333,7 @@ test.test('custom localeCompare() options', test => {
     )
 
     test.resolveMatch(
-        items.toPipeline()
+        items.toAsyncIterable()
             .sortBy({ options: { locales: 'fr', ignorePunctuation: true }, d: true })
             .toArray(),
         [ 'réservé', 'Premier', 'communiqué', 'Cliché', 'café', 'Adieu' ],
@@ -341,7 +341,7 @@ test.test('custom localeCompare() options', test => {
     )
 
     test.resolveMatch(
-        items.toPipeline()
+        items.toAsyncIterable()
             .map(str => ({ str }))
             .sortBy({ 
                 selector: ({ str }) => str,
@@ -361,7 +361,7 @@ test.test('custom localeCompare() options', test => {
     )
 
     test.resolveMatch(
-        items.toPipeline()
+        items.toAsyncIterable()
             .map(str => ({ str }))
             .sortBy({ 
                 field: 'str',
@@ -388,14 +388,14 @@ test.test('custom localeCompare() options', test => {
 
     // in German, ä sorts before z
     // ;[ 'ä', 'a', 'z' ]
-    //     .toPipeline()
+    //     .toAsyncIterable()
     //     .sort({ opts: { locales: 'de' } })
     //     .toArray()
     //     .then(arr => test.same(arr, [ 'a', 'ä', 'z' ]))
 
     // in Swedish, ä sorts after z
     // ;[ 'ä', 'a', 'z' ]
-    //     .toPipeline()
+    //     .toAsyncIterable()
     //     .sort({ opts: { locales: 'sv' } })
     //     .toArray()
     //     .then(arr => test.same(arr, [ 'a', 'z', 'ä' ]))
@@ -403,7 +403,7 @@ test.test('custom localeCompare() options', test => {
 
 test.test('assertions', test => {
     function testRejection(desc, msg, errCtor) {
-        test.rejects(new Pipeline().sort(desc).toArray(), errCtor, msg)
+        test.rejects(new AsyncIterable().sort(desc).toArray(), errCtor, msg)
     }
 
     testRejection(null, 'null sorting descriptor', TypeError)
@@ -433,7 +433,7 @@ test.test('assertions', test => {
             { test: 1 },
             { test: 0 }
         ]
-            .toPipeline()
+            .toAsyncIterable()
             .sort({ field: 'test' })
             .toArray(),
         [
@@ -450,7 +450,7 @@ test.test('assertions', test => {
             { [ field ]: 1 },
             { [ field ]: 0 }
         ]
-            .toPipeline()
+            .toAsyncIterable()
             .sort({ field })
             .toArray(),
         [

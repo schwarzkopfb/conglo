@@ -9,15 +9,15 @@ new Pipeline('hello')
 
 Promise
     .resolve('hello')
-    .toPipeline()
+    .toAsyncIterable()
 
 new Set([ 1, 2, 3 ])
-    .toPipeline()
+    .toAsyncIterable()
 
 const map = new Map([ [ 1, 'one' ], [ 2, 'two' ] ])
 
 map
-    .toPipeline((k, v, i) => i)
+    .toAsyncIterable((k, v, i) => i)
     .toArray()
     .then(console.log)
 
@@ -33,7 +33,7 @@ async function* repeatSlowly(val, n) {
 }
 
 repeatSlowly(4, 3)
-    .toPipeline()
+    .toAsyncIterable()
     .toArray()
     .then(console.log)
 
@@ -71,7 +71,7 @@ range(10)
     .then(console.log)
 
 Object
-    .toPipeline({
+    .toAsyncIterable({
         oa: 1,
         ob: 2,
         oc: 3
@@ -130,12 +130,12 @@ range(4, 6)
 const ref = {}
 
 ;[ 1, 'a', ref, NaN ]
-    .toPipeline()
+    .toAsyncIterable()
     .includes('string', 1, (val, item) => typeof item === val)
     .then(r => console.log('includes', r))
 
 ;[ 78, 92, 100, 37, 81 ]
-    .toPipeline()
+    .toAsyncIterable()
     .map(n => ({ n }))
     .average(o => o.n)
     .then(a => console.log('average', a))

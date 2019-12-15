@@ -1,7 +1,7 @@
 'use strict'
 
-const Pipeline = require('../lib/pipeline')
+const AsyncIterable = require('../lib/AsyncIterable')
 
-Map.prototype.toPipeline = function(fn, self) {
-    return Pipeline.fromMap(this, ...arguments)
+Map.prototype.toAsyncIterable = function(fn, self) {
+    return AsyncIterable.fromMap(this, ...arguments)
 }

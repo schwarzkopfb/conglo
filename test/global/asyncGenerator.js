@@ -6,6 +6,6 @@ const AsyncIterable = require('../../without-globals'),
 
 require('../../global/asyncGenerator')
 
-test.type(value.toPipeline, 'function', 'prototype should be extended')
-test.type(value.toPipeline(), AsyncIterable, 'iterable instance shoud be returned')
-test.resolveMatch(value.toPipeline().toArray(), [ 'ag' ], 'iterable should be created from given value')
+test.type(value.toAsyncIterable, 'function', 'prototype should be extended')
+test.type(value.toAsyncIterable(), AsyncIterable, 'iterable instance shoud be returned')
+test.resolveMatch(value.toAsyncIterable().toArray(), [ 'ag' ], 'iterable should be created from given value')

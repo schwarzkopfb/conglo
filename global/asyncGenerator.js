@@ -1,9 +1,9 @@
 'use strict'
 
-const Pipeline = require('../lib/pipeline'),
+const AsyncIterable = require('../lib/AsyncIterable'),
       AsyncGenerator = Object.getPrototypeOf(/* istanbul ignore next */async function* () {})
 
-AsyncGenerator.prototype.toPipeline = function() {
-    return new Pipeline(this)
+AsyncGenerator.prototype.toAsyncIterable = function() {
+    return new AsyncIterable(this)
 }
 

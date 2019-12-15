@@ -1,7 +1,7 @@
 'use strict'
 
-const Pipeline = require('../lib/pipeline')
+const AsyncIterable = require('../lib/AsyncIterable')
 
-Array.prototype.toPipeline = function() {
-    return new Pipeline(this)
+Array.prototype.toAsyncIterable = function() {
+    return new AsyncIterable(this)
 }

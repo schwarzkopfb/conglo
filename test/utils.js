@@ -1,7 +1,7 @@
 'use strict'
 
 const test = require('tap'),
-      AsyncIterable = require('../lib/pipeline'),
+      AsyncIterable = require('../lib/AsyncIterable'),
       { asyncIterator } = Symbol,
       {
           isIterable,

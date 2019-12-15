@@ -1,12 +1,12 @@
 'use strict'
 
 const test = require('tap'),
-      Pipeline = require('../..')
+      AsyncIterable = require('../..')
 
 const nums = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
 test.resolveMatch(
-    new Pipeline(nums)
+    new AsyncIterable(nums)
         .step(1)
         .toArray(),
     nums, 
@@ -14,7 +14,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(nums)
+    new AsyncIterable(nums)
         .step(2)
         .toArray(),
     [ 1, 3, 5, 7, 9 ], 
@@ -22,7 +22,7 @@ test.resolveMatch(
 )
 
 test.resolveMatch(
-    new Pipeline(nums)
+    new AsyncIterable(nums)
         .stepBy(3)
         .toArray(),
     [ 1, 4, 7 ], 
@@ -31,7 +31,7 @@ test.resolveMatch(
 
 test.test('argument assertions', test => {
     function testRejection(n, msg, errCtor) {
-        test.rejects(new Pipeline().step(n).toArray(), errCtor, msg)
+        test.rejects(new AsyncIterable().step(n).toArray(), errCtor, msg)
     }
 
     testRejection(true, 'non-number', TypeError)

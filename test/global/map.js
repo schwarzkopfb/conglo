@@ -6,20 +6,20 @@ const AsyncIterable = require('../../without-globals'),
 
 require('../../global/map')
 
-test.type(value.toPipeline, 'function', 'constructor should be extended')
-test.type(value.toPipeline(), AsyncIterable, 'iterable instance shoud be returned')
+test.type(value.toAsyncIterable, 'function', 'constructor should be extended')
+test.type(value.toAsyncIterable(), AsyncIterable, 'iterable instance shoud be returned')
 
 test.resolveMatch(
-    value.toPipeline(k => k).toArray(),
+    value.toAsyncIterable(k => k).toArray(),
     [ 'a', 'b', 'c' ], 'array should contain keys'
 )
 
 test.resolveMatch(
-    value.toPipeline((k, v) => v).toArray(),
+    value.toAsyncIterable((k, v) => v).toArray(),
     [ 1, 2, 3 ], 'array should contain values'
 )
 
 test.resolveMatch(
-    value.toPipeline((k, v, i) => i).toArray(),
+    value.toAsyncIterable((k, v, i) => i).toArray(),
     [ 0, 1, 2 ], 'array should contain iteration indices'
 )

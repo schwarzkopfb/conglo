@@ -1,7 +1,7 @@
 'use strict'
 
-const Pipeline = require('../lib/pipeline')
+const AsyncIterable = require('../lib/AsyncIterable')
 
-Object.toPipeline = function(obj, fn, self) {
-    return Pipeline.fromObject(...arguments)
+Object.toAsyncIterable = function(obj, fn, self) {
+    return AsyncIterable.fromObject(...arguments)
 }
