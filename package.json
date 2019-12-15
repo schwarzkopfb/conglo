@@ -5,8 +5,15 @@
   "main": "lib/with-globals.js",
   "directories": {
     "lib": "lib",
-    "test": "test"
+    "doc": "docs",
+    "test": "test",
+    "example": "examples"
   },
+  "files": [
+    "lib/**",
+    "global/**",
+    "without-globals.js"
+  ],
   "scripts": {
     "preversion": "npm test",
     "postversion": "npm publish",
@@ -45,5 +52,9 @@
   "devDependencies": {
     "tap": "^14.10.2",
     "vuepress": "^1.2.0"
+  },
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vue-template-compiler": "^2.6.11"
   }
 }
