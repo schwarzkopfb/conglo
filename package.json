@@ -1,6 +1,6 @@
 {
   "name": "conglo",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "description": "compose expressive async data transformation pipelines",
   "main": "lib/with-globals.js",
   "directories": {
