@@ -1,6 +1,6 @@
 {
   "name": "conglo",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "compose expressive async data transformation pipelines",
   "main": "lib/with-globals.js",
   "directories": {
@@ -9,7 +9,6 @@
   },
   "scripts": {
     "preversion": "npm test",
-    
     "test": "tap test/**",
     "test:cov": "npm test -- --coverage-report=lcov",
     "docs:dev": "vuepress dev docs",
