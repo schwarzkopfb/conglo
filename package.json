@@ -8,6 +8,8 @@
     "test": "test"
   },
   "scripts": {
+    "preversion": "npm test",
+    
     "test": "tap test/**",
     "test:cov": "npm test -- --coverage-report=lcov",
     "docs:dev": "vuepress dev docs",
