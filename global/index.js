@@ -1,13 +1,13 @@
 'use strict'
 
 ;[
-    'string',
-    'object',
     'array',
-    'set',
-    'map',
-    'promise',
+    'asyncGenerator',
     'generator',
-    'asyncGenerator'
-]
+    'map',
+    'object',
+    'promise',
+    'set',
+    'string'
+  ]
     .forEach(name => require(`./${name}`))
