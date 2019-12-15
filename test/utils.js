@@ -1,12 +1,10 @@
 'use strict'
 
 const test = require('tap'),
-      AsyncIterable = require('../lib/AsyncIterable'),
       { asyncIterator } = Symbol,
       {
           isIterable,
           toAsyncIterator,
-          toAsyncIterableFactory
       } = require('../lib/utils')
 
 test.test('isIterable', test => {
@@ -43,20 +41,6 @@ test.test('toAsyncIterator', test => {
 
     test.resolveMatch(exhaust(toAsyncIterator(Promise.resolve([ 3, 2, 1 ]))), [ 3, 2, 1 ], 'asyncIterator from array via Promise')
     test.resolveMatch(exhaust(toAsyncIterator(Promise.resolve(true))), [ true ], 'asyncIterator from boolean via Promise')
-
-    test.end()
-})
-
-test.test('toAsyncIterableFactory', test => {
-    function* fn(n) { yield n ** n }
-    fn.aliases = [ 'fun', 'func' ]
-    const factory = toAsyncIterableFactory(fn)
-
-    test.type(factory, 'function', 'factory should be a function')
-    test.equal(fn.name, factory.name, 'factory should remain function name')
-    test.same(factory.aliases, [ 'fun', 'func' ], 'factory should remain aliases')
-    test.type(factory(), AsyncIterable, 'factory should return AsyncIterable instances')
-    test.resolveMatch(factory(2).first(), 4, 'factory should pass arguments through')
 
     test.end()
 })
