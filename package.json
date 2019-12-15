@@ -51,10 +51,8 @@
   "homepage": "https://github.com/schwarzkopfb/conglo#readme",
   "devDependencies": {
     "tap": "^14.10.2",
-    "vuepress": "^1.2.0"
-  },
-  "dependencies": {
     "vue": "^2.6.11",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "vuepress": "^1.2.0"
   }
 }
