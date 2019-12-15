@@ -7,7 +7,7 @@
     <meta name="description" content="compose expressive async data transformation pipelines easily">
     
     
-    <link rel="preload" href="/assets/css/0.styles.0d113292.css" as="style"><link rel="preload" href="/assets/js/app.3fad1d17.js" as="script"><link rel="preload" href="/assets/js/2.44157178.js" as="script"><link rel="preload" href="/assets/js/7.d4c66ce0.js" as="script"><link rel="prefetch" href="/assets/js/3.2665c116.js"><link rel="prefetch" href="/assets/js/4.8d5110b9.js"><link rel="prefetch" href="/assets/js/5.4808ecdc.js"><link rel="prefetch" href="/assets/js/6.79d209e2.js"><link rel="prefetch" href="/assets/js/8.f401c270.js"><link rel="prefetch" href="/assets/js/9.bf753848.js">
+    <link rel="preload" href="/assets/css/0.styles.0d113292.css" as="style"><link rel="preload" href="/assets/js/app.1c330aae.js" as="script"><link rel="preload" href="/assets/js/2.44157178.js" as="script"><link rel="preload" href="/assets/js/7.5ed616de.js" as="script"><link rel="prefetch" href="/assets/js/3.2665c116.js"><link rel="prefetch" href="/assets/js/4.8d5110b9.js"><link rel="prefetch" href="/assets/js/5.4808ecdc.js"><link rel="prefetch" href="/assets/js/6.79d209e2.js"><link rel="prefetch" href="/assets/js/8.f401c270.js"><link rel="prefetch" href="/assets/js/9.bf753848.js">
     <link rel="stylesheet" href="/assets/css/0.styles.0d113292.css">
   </head>
   <body>
@@ -16,7 +16,7 @@ These <em>pipelines</em> are based on the concept of <a href="https://www.codeme
     <span class="token comment">// example mongoose query</span>
     <span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token punctuation">{</span> age<span class="token punctuation">:</span> <span class="token punctuation">{</span> $gte<span class="token punctuation">:</span> <span class="token number">18</span> <span class="token punctuation">}</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
     <span class="token comment">// turn the Promise into a Conglo AsyncIterable</span>
-    <span class="token punctuation">.</span><span class="token function">toPipeline</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">toAsyncIterable</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
     <span class="token comment">// perform async mapping on it</span>
     <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">async</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token punctuation">{</span> id<span class="token punctuation">,</span> age <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
         age<span class="token punctuation">,</span>
@@ -33,6 +33,6 @@ console<span class="token punctuation">.</span><span class="token function">log<
       <a href="/" class="prev router-link-active">Home</a></span> <span class="next"><a href="/guide/getting-started.html">Getting Started</a>
       →
     </span></p></div> </main></div><div class="global-ui"></div></div>
-    <script src="/assets/js/app.3fad1d17.js" defer></script><script src="/assets/js/2.44157178.js" defer></script><script src="/assets/js/7.d4c66ce0.js" defer></script>
+    <script src="/assets/js/app.1c330aae.js" defer></script><script src="/assets/js/2.44157178.js" defer></script><script src="/assets/js/7.5ed616de.js" defer></script>
   </body>
 </html>
