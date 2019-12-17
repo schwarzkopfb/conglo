@@ -16,7 +16,7 @@
     "preversion": "npm test",
     "postversion": "npm publish",
     "postpublish": "git push origin --all; git push origin --tags",
-    "postinstall": "symlink-dir ./lib/proto ./method; symlink-dir ./lib/global ./global; symlink-dir ./lib/without-globals.js ./without-globals.js",
+    "postinstall": "node script/postinstall",
     "changelog": "standard-changelog",
     "test": "tap test/**",
     "test:cov": "npm test -- --coverage-report=lcov",
@@ -52,9 +52,6 @@
     "url": "https://github.com/schwarzkopfb/conglo/issues"
   },
   "homepage": "https://github.com/schwarzkopfb/conglo#readme",
-  "dependencies": {
-    "symlink-dir": "^3.1.1"
-  },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
