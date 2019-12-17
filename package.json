@@ -10,7 +10,8 @@
     "example": "examples"
   },
   "files": [
-    "lib/**"
+    "lib/**",
+    "script/**"
   ],
   "scripts": {
     "preversion": "npm test",
