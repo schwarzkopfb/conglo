@@ -19,5 +19,5 @@ test.resolveMatch(
 
         return arr
     }, 
-    [ 3, 1, 2 ], 'async iteration of an AsyncIterable should work'
+    [ 3, 1, 2 ], 'async iteration of an AsyncIterable should work :)'
 )
