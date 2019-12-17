@@ -1,10 +1,10 @@
 'use strict'
 
-const AsyncIterable = require('../../without-globals'),
+const AsyncIterable = require('../../lib/without-globals'),
       test = require('tap'),
       value = new Map([ [ 'a', 1 ], [ 'b', 2, ], [ 'c', 3 ] ])
 
-require('../../global/map')
+require('../../lib/global/map')
 
 test.type(value.toAsyncIterable, 'function', 'constructor should be extended')
 test.type(value.toAsyncIterable(), AsyncIterable, 'iterable instance shoud be returned')

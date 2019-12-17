@@ -10,14 +10,13 @@
     "example": "examples"
   },
   "files": [
-    "lib/**",
-    "global/**",
-    "without-globals.js"
+    "lib/**"
   ],
   "scripts": {
     "preversion": "npm test",
     "postversion": "npm publish",
     "postpublish": "git push origin --all; git push origin --tags",
+    "postinstall": "symlink-dir ./lib/proto ./methods; symlink-dir ./lib/global ./global; symlink-dir ./lib/without-globals.js ./without-globals.js",
     "changelog": "standard-changelog",
     "test": "tap test/**",
     "test:cov": "npm test -- --coverage-report=lcov",
@@ -69,5 +68,7 @@
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "symlink-dir": "^3.1.1"
+  }
 }

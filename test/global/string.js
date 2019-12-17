@@ -1,10 +1,10 @@
 'use strict'
 
-const AsyncIterable = require('../../without-globals'),
+const AsyncIterable = require('../../lib/without-globals'),
       test = require('tap'),
       value = 's'
 
-require('../../global/string')
+require('../../lib/global/string')
 
 test.type(value.toAsyncIterable, 'function', 'prototype should be extended')
 test.type(value.toAsyncIterable(), AsyncIterable, 'iterable instance shoud be returned')
