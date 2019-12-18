@@ -10,7 +10,7 @@ const test = require('tap'),
           assertFunction,
           assertUndefined,
           assertNonNegative,
-          assertPositive,
+          assertFiniteNumber,
           assertStringOrSymbol,
           assertInstanceOf 
       } = require('../lib/assert')
@@ -38,6 +38,12 @@ testFailure(assertNumber, 'str', 'test', 'invalid', undefined, RangeError)
 testFailure(assertNumber, 'str', 'test', 'sort_non_int_neg', undefined, TypeError)
 testSuccess(assertNumber, 1)
 
+testFailure(assertFiniteNumber, 'str', 'test', null, undefined, TypeError)
+testFailure(assertFiniteNumber, Infinity, 'test', null, undefined, RangeError)
+testFailure(assertFiniteNumber, 'str', 'test', 'invalid', undefined, RangeError)
+testFailure(assertFiniteNumber, 'str', 'test', 'sort_non_int_neg', undefined, TypeError)
+testSuccess(assertFiniteNumber, 1)
+
 testFailure(assertInteger, 4.2, 'test', null, undefined, RangeError)
 testFailure(assertInteger, Infinity, 'test', null, undefined, RangeError)
 testFailure(assertInteger, 4.2, 'test', 'invalid', undefined, RangeError)
@@ -54,12 +60,6 @@ testFailure(assertNonNegative, -1, 'test', null, undefined, RangeError)
 testFailure(assertNonNegative, -1, 'test', 'invalid', undefined, RangeError)
 testFailure(assertNonNegative, -1, 'test', 'sort_non_int_neg', undefined, RangeError)
 testSuccess(assertNonNegative, 0)
-
-testFailure(assertPositive, -1, 'test', null, undefined, RangeError)
-testFailure(assertPositive, 0, 'test', null, undefined, RangeError)
-testFailure(assertPositive, -1, 'test', 'invalid', undefined, RangeError)
-testFailure(assertPositive, -1, 'test', 'sort_non_int_neg', undefined, RangeError)
-testSuccess(assertPositive, 1)
 
 testFailure(assertFunction, true, 'test', null, undefined, TypeError)
 testFailure(assertFunction, true, 'test', 'invalid', undefined, RangeError)

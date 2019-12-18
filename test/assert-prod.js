@@ -12,7 +12,7 @@ const test = require('tap'),
           assertFunction,
           assertUndefined,
           assertNonNegative,
-          assertPositive,
+          assertFiniteNumber,
           assertStringOrSymbol,
           assertInstanceOf 
       } = require('../lib/assert')
@@ -36,6 +36,12 @@ testSuccess(assertNumber, 'str', 'test', 'invalid', undefined, RangeError)
 testSuccess(assertNumber, 'str', 'test', 'sort_non_int_neg', undefined, TypeError)
 testSuccess(assertNumber, 1)
 
+testSuccess(assertNumber, 'str', 'test', null, undefined, TypeError)
+testSuccess(assertNumber, Infinity, 'test', null, undefined, RangeError)
+testSuccess(assertNumber, 'str', 'test', 'invalid', undefined, RangeError)
+testSuccess(assertNumber, 'str', 'test', 'sort_non_int_neg', undefined, TypeError)
+testSuccess(assertNumber, 1)
+
 testSuccess(assertInteger, 4.2, 'test', null, undefined, RangeError)
 testSuccess(assertInteger, Infinity, 'test', null, undefined, RangeError)
 testSuccess(assertInteger, 4.2, 'test', 'invalid', undefined, RangeError)
@@ -52,12 +58,6 @@ testSuccess(assertNonNegative, -1, 'test', null, undefined, RangeError)
 testSuccess(assertNonNegative, -1, 'test', 'invalid', undefined, RangeError)
 testSuccess(assertNonNegative, -1, 'test', 'sort_non_int_neg', undefined, RangeError)
 testSuccess(assertNonNegative, 0)
-
-testSuccess(assertPositive, -1, 'test', null, undefined, RangeError)
-testSuccess(assertPositive, 0, 'test', null, undefined, RangeError)
-testSuccess(assertPositive, -1, 'test', 'invalid', undefined, RangeError)
-testSuccess(assertPositive, -1, 'test', 'sort_non_int_neg', undefined, RangeError)
-testSuccess(assertPositive, 1)
 
 testSuccess(assertFunction, true, 'test', null, undefined, TypeError)
 testSuccess(assertFunction, true, 'test', 'invalid', undefined, RangeError)
