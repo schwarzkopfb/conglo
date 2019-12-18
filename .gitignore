@@ -19,3 +19,8 @@ node_modules/
 .node_repl_history
 
 docs/.vuepress/dist
+
+# prevent accidental commit of postinstall created symlinks
+global
+method
+without-globals.js
