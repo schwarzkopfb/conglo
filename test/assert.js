@@ -6,6 +6,7 @@ const test = require('tap'),
           assertObject,
           assertNumber,
           assertInteger,
+          assertIntegerOrInfinity,
           assertFunction,
           assertUndefined,
           assertNonNegative,
@@ -37,9 +38,16 @@ testFailure(assertNumber, 'str', 'test', 'sort_non_int_neg', undefined, TypeErro
 testSuccess(assertNumber, 1)
 
 testFailure(assertInteger, 4.2, 'test', null, undefined, RangeError)
+testFailure(assertInteger, Infinity, 'test', null, undefined, RangeError)
 testFailure(assertInteger, 4.2, 'test', 'invalid', undefined, RangeError)
 testFailure(assertInteger, 4.2, 'test', 'sort_non_int_neg', undefined, RangeError)
 testSuccess(assertInteger, 1)
+
+testFailure(assertIntegerOrInfinity, 4.2, 'test', null, undefined, RangeError)
+testFailure(assertIntegerOrInfinity, 4.2, 'test', 'invalid', undefined, RangeError)
+testFailure(assertIntegerOrInfinity, 4.2, 'test', 'sort_non_int_neg', undefined, RangeError)
+testSuccess(assertIntegerOrInfinity, 1)
+testSuccess(assertIntegerOrInfinity, Infinity)
 
 testFailure(assertNonNegative, -1, 'test', null, undefined, RangeError)
 testFailure(assertNonNegative, -1, 'test', 'invalid', undefined, RangeError)
