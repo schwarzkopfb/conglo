@@ -23,7 +23,7 @@
     "test:cov": "npm test -- --coverage-report=lcov",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
-    "cloc": "cloc lib global without-globals.js",
+    "cloc": "cloc lib lib/global lib/without-globals.js",
     "cloc:test": "cloc test",
     "cloc:docs": "cloc docs examples",
     "repl": "node -r ."
