@@ -25,7 +25,8 @@
     "docs:build": "vuepress build docs",
     "cloc": "cloc lib global without-globals.js",
     "cloc:test": "cloc test",
-    "cloc:docs": "cloc docs examples"
+    "cloc:docs": "cloc docs examples",
+    "repl": "node -r ."
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,9 @@
   },
   "homepage": "https://github.com/schwarzkopfb/conglo#readme",
   "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-function-bind": "^7.7.4",
+    "@babel/register": "^7.7.4",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "cloc": "^2.5.1",
