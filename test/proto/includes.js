@@ -4,7 +4,7 @@ const test = require('tap')
 
 require('../..')
 
-test.plan(8)
+test.plan(9)
 
 test.same(
     [].toAsyncIterable().includes,
@@ -65,6 +65,17 @@ test.test('custom comparer with overwritten `this` from given index', test => {
     test.plan(1)
 
     ;[ 1, 2, 3 ].toAsyncIterable().includes(2, 2, function() { test.same(this, 42) }, 42)
+})
+
+test.test('async custom comparer', test => {
+    test.plan(2)
+        
+    function comparer(a, b) {
+        return new Promise(resolve => resolve(a === b))
+    }
+
+    test.resolveMatch([ 'apple', 'Apple', 'APPLE' ].toAsyncIterable().includes('aPPle', comparer), false, 'should not be found')
+    test.resolveMatch([ 'apple', 'Apple', 'APPLE' ].toAsyncIterable().includes('Apple', comparer), true, 'should be found')
 })
 
 test.test('assertions', test => {
