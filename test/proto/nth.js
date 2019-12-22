@@ -5,6 +5,14 @@ const test = require('tap'),
 
 const nums = [ 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
 
+test.plan(5)
+
+test.same(
+    [].toAsyncIterable().nth, 
+    [].toAsyncIterable().elementAt,
+    'alias'
+)
+
 test.resolveMatch(
     new AsyncIterable(nums).nth(0),
     1, 'n is 0, first item should be returned'
@@ -21,6 +29,8 @@ test.resolveMatch(
 )
 
 test.test('argument assertions', test => {
+    test.plan(4)
+
     function testRejection(n, msg, errCtor) {
         test.rejects(new AsyncIterable().nth(n), errCtor, msg)
     }
@@ -29,6 +39,4 @@ test.test('argument assertions', test => {
     testRejection(0.42, 'non-integer', RangeError)
     testRejection(-1, 'negative', RangeError)
     testRejection(Infinity, 'infinite', RangeError)
-
-    test.end()
 })

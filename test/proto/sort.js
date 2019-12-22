@@ -3,6 +3,19 @@
 const test = require('tap'),
       AsyncIterable = require('../..')
 
+test.plan(26)
+
+test.test('aliases', test => {
+    const instance = [].toAsyncIterable()
+
+    test.same(instance.sort, instance.sortBy)
+    test.same(instance.sort, instance.order)
+    test.same(instance.sort, instance.orderBy)
+
+    test.end()
+})
+
+
 const data = [
     { char: 'c', number: 3, emoji: '😀' },
     { char: 'c', number: 2, emoji: '😃' },
@@ -402,6 +415,8 @@ test.test('custom localeCompare() options', test => {
 })
 
 test.test('assertions', test => {
+    test.plan(23)
+
     function testRejection(desc, msg, errCtor) {
         test.rejects(new AsyncIterable().sort(desc).toArray(), errCtor, msg)
     }
@@ -459,6 +474,4 @@ test.test('assertions', test => {
         ],
         'symbol field name does not reject'
     )
-
-    test.end()
 })
