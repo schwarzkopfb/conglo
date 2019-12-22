@@ -27,9 +27,9 @@ test.test('with selector', test => {
         }
     }
 
-    [ 1, 2, 3 ].toAsyncIterable().last(checkArgSeries(0, 1, 'first argument passed to predicate should be the item itself'));
-    [ 1, 2, 3 ].toAsyncIterable().last(checkArgSeries(1, 0, 'second argument passed to predicate should be the iteration index (starting from zero)'));
-    [ 1, 2, 3 ].toAsyncIterable().last(function () { test.same(this, 42, '`this` of predicate should be overwritten') }, 42)
+    [ 1, 2, 3 ].toAsyncIterable().last(checkArgSeries(0, 1, 'first argument passed to selector should be the item itself'));
+    [ 1, 2, 3 ].toAsyncIterable().last(checkArgSeries(1, 0, 'second argument passed to selector should be the iteration index (starting from zero)'));
+    [ 1, 2, 3 ].toAsyncIterable().last(function () { test.same(this, 42, '`this` of selector should be overwritten') }, 42)
 })
 
-test.rejects([].toAsyncIterable().last('not a function'), 'predicate should be asserted')
+test.rejects([].toAsyncIterable().last('not a function'), 'selector should be asserted')
