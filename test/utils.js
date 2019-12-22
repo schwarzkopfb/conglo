@@ -4,7 +4,7 @@ const test = require('tap'),
       { asyncIterator } = Symbol,
       {
           isIterable,
-          toAsyncIterator,
+          toAsyncIteratorFactory,
       } = require('../lib/utils')
 
 test.test('isIterable', test => {
@@ -23,7 +23,7 @@ test.test('isIterable', test => {
     test.end()
 })
 
-test.test('toAsyncIterator', test => {
+test.test('toAsyncIteratorFactory', test => {
     async function exhaust(it) {
         const arr = []
 
@@ -33,14 +33,14 @@ test.test('toAsyncIterator', test => {
         return arr
     }
 
-    test.resolveMatch(exhaust(toAsyncIterator([ 1, 2, 3 ])), [ 1, 2, 3 ], 'asyncIterator from array')
-    test.resolveMatch(exhaust(toAsyncIterator(new Set([ 1, 2, 3 ]))), [ 1, 2, 3 ], 'asyncIterator from Set')
-    test.resolveMatch(exhaust(toAsyncIterator('abc')), [ 'a', 'b', 'c' ], 'asyncIterator from string')
-    test.resolveMatch(exhaust(toAsyncIterator(42)), [ 42 ], 'asyncIterator from number')
-    test.resolveMatch(exhaust(toAsyncIterator(true)), [ true ], 'asyncIterator from boolean')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory([ 1, 2, 3 ])), [ 1, 2, 3 ], 'asyncIterator from array')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory(new Set([ 1, 2, 3 ]))), [ 1, 2, 3 ], 'asyncIterator from Set')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory('abc')), [ 'a', 'b', 'c' ], 'asyncIterator from string')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory(42)), [ 42 ], 'asyncIterator from number')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory(true)), [ true ], 'asyncIterator from boolean')
 
-    test.resolveMatch(exhaust(toAsyncIterator(Promise.resolve([ 3, 2, 1 ]))), [ 3, 2, 1 ], 'asyncIterator from array via Promise')
-    test.resolveMatch(exhaust(toAsyncIterator(Promise.resolve(true))), [ true ], 'asyncIterator from boolean via Promise')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory(Promise.resolve([ 3, 2, 1 ]))), [ 3, 2, 1 ], 'asyncIterator from array via Promise')
+    test.resolveMatch(exhaust(toAsyncIteratorFactory(Promise.resolve(true))), [ true ], 'asyncIterator from boolean via Promise')
 
     test.end()
 })
