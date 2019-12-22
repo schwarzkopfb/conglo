@@ -14,11 +14,12 @@ test.test('without selector', test => {
 })
 
 test.test('with selector', test => {
-    test.plan(12)
+    test.plan(13)
 
     test.resolveMatch([].toAsyncIterable().last(n => n), undefined, 'empty array')
     test.resolveMatch([ 1, 2, 3 ].toAsyncIterable().last(n => n % 2), 3, 'last matching item should be returned')
     test.resolveMatch([ 1, 2, 3 ].toAsyncIterable().last(n => n < 1), undefined, 'no matching item, undefined should be returned')
+    test.resolveMatch([ 1, 2, 3 ].toAsyncIterable().last(async n => n < 2), 1, 'async selector')
 
     function checkArgSeries(index, from, msg) {
         return function() {
